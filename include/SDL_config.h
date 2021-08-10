@@ -19,6 +19,10 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
+#if SDL_USE_GENERATED_CONFIG_H
+#include "SDL_config.generated.h"
+#else 
+
 #ifndef SDL_config_h_
 #define SDL_config_h_
 
@@ -53,3 +57,4 @@
 #endif
 
 #endif /* SDL_config_h_ */
+#endif /* SDL_USE_GENERATED_CONFIG_H */

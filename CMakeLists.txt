@@ -273,9 +273,8 @@ if(CYGWIN)
   set(SDL_CFLAGS "${SDL_CFLAGS} -I/usr/include/mingw")
 endif()
 
-add_definitions(-DUSING_GENERATED_CONFIG_H)
 # General includes
-include_directories(${SDL2_BINARY_DIR}/include ${SDL2_SOURCE_DIR}/include)
+include_directories(${SDL2_SOURCE_DIR}/include)
 if(USE_GCC OR USE_CLANG)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -idirafter \"${SDL2_SOURCE_DIR}/src/video/khronos\"")
 else()
@@ -2065,7 +2064,7 @@ endif()
 # endif()
 
 configure_file("${SDL2_SOURCE_DIR}/include/SDL_config.h.cmake"
-  "${SDL2_BINARY_DIR}/include/SDL_config.h")
+  "${SDL2_BINARY_DIR}/include/SDL_config.generated.h")
 
 # Prepare the flags and remove duplicates
 if(EXTRA_LDFLAGS)
@@ -2389,4 +2388,15 @@ if(NOT TARGET uninstall)
 
   add_custom_target(uninstall
       COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+endif()
+
+# Attach generated includes to targets during build
+if(TARGET SDL2-static)
+  target_include_directories(SDL2-static BEFORE PUBLIC $<BUILD_INTERFACE:${SDL2_BINARY_DIR}/include>)
+  target_compile_definitions(SDL2-static PUBLIC $<BUILD_INTERFACE:SDL_USE_GENERATED_CONFIG_H>)
+endif()
+
+if(TARGET SDL2)
+  target_include_directories(SDL2 BEFORE PUBLIC $<BUILD_INTERFACE:${SDL2_BINARY_DIR}/include>)
+  target_compile_definitions(SDL2 PUBLIC $<BUILD_INTERFACE:SDL_USE_GENERATED_CONFIG_H>)
 endif()
