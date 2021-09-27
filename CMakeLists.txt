@@ -1669,9 +1669,11 @@ elseif(APPLE)
 
   if(DARWIN OR MACOSX)
     file(GLOB MISC_SOURCES ${SDL2_SOURCE_DIR}/src/misc/macosx/*.m)
-    set(SOURCE_FILES ${SOURCE_FILES} ${MISC_SOURCES})
-    set(HAVE_SDL_MISC TRUE)
+  else()
+    file(GLOB MISC_SOURCES ${SDL2_SOURCE_DIR}/src/misc/ios/*.m)
   endif()
+  set(SOURCE_FILES ${SOURCE_FILES} ${MISC_SOURCES})
+  set(HAVE_SDL_MISC TRUE)
 
   if(SDL_AUDIO)
     set(SDL_AUDIO_DRIVER_COREAUDIO 1)
