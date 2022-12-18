@@ -30,6 +30,10 @@
 #include "SDL_atomic.h"
 #include "SDL_error.h"
 
+// NOTE(shards): Use implementation linked in boost::container
+#include "dlmalloc_2_8_6.h"
+#define HAVE_MALLOC
+
 #ifndef HAVE_MALLOC
 #define LACKS_SYS_TYPES_H
 #define LACKS_STDIO_H
