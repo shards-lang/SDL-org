@@ -2025,7 +2025,7 @@ class SDLInputConnection extends BaseInputConnection {
             }
             matchLength += Character.charCount(codePoint);
         }
-        /* FIXME: This doesn't handle graphemes, like '🌬️' */
+        /* FIXME: This doesn't handle graphemes */
         for (offset = matchLength; offset < mCommittedText.length(); ) {
             int codePoint = mCommittedText.codePointAt(offset);
             nativeGenerateScancodeForUnichar('\b');
