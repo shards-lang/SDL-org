@@ -310,7 +310,7 @@ void UIKit_SetGameControllerInteraction(bool enabled)
 
 void UIKit_SetViewGameControllerInteraction(UIView *view, bool enabled)
 {
-#if defined(SDL_PLATFORM_VISIONOS) || \
+#if (defined(SDL_PLATFORM_VISIONOS) && __VISION_OS_VERSION_MAX_ALLOWED >= 20000) || \
        (defined(SDL_PLATFORM_IOS) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 180000)
     if (@available(iOS 18.0, visionOS 2.0, *)) {
         if (enabled) {
